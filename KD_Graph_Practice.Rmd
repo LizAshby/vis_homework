@@ -1,0 +1,73 @@
+---
+title: "Kenya_Data_Graphs"
+output: html_notebook
+---
+
+```{r Library_call}
+
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+library(readxl)
+library(plyr)
+```
+
+```{r Data_Call}
+
+KD <- read_excel("~/RProjects/Kenya_Data/Kenya_Data_Edited.xlsx", sheet = "Kenya_Data")
+
+#KD1 <- revalue(KD$City, c("lekijil" = "lekiji"))
+
+
+```
+
+2 ways to make the same plot
+```{r Gender-Age}
+
+
+g <- ggplot(data = KD, aes(x = Gender, y = Age))
+ #g + geom_point()
+
+g +
+  geom_point(aes(Gender, Age))
+
+```
+
+```{r}
+
+#dfsum <- KD %>% 
+  #group_by(Q17, Gender) %>%
+    #tally()
+
+g <- ggplot(KD, aes(Q17)) 
+            
+g + geom_bar(aes(fill = City)) 
+
+#KD[,2] <- factor(KD, levels = c("Lekiji", "Mpala"), ordered = FALSE)
+#KD[,3] <- factor(KD, levels = c("Lekiji", "Mpala"), ordered = FALSE)
+
+ggplot(KD, aes(Q17, City)) +
+  geom_bar(aes(fill = variable), position = "dodge", stat = "identity")
+
+```
+
+
+
+
+```{r Q17_City}
+
+ggplot(KD, aes(x = Q17, fill = City)) +
+  geom_bar(position = "dodge", color = "black") +
+  xlab("Q17: Do you treat your water?") +
+  theme_classic() +
+  scale_fill_brewer(palette = "Pastel5")
+
+  #geom_text(aes(vjust=1.5, color='white', position=position_dodge(.9), size=3))
+
+```
+
+```{r}
+
+```
+
+
